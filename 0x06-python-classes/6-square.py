@@ -1,68 +1,65 @@
 #!/usr/bin/python3
-class Square:
-    """Represents a square.
-    Private instance attribute: size:
-        - property def size(self)
-        - property setter def size(self, value)
-    Private instance attribute: position:
-        - property def position(self)
-        - property setter def position(self, value)
-    Instantiation with optional size and optional position.
-    Public instance method: def area(self).
-    Public instance method: def my_print(self).
-    """
+"""Square module"""
 
+
+class Square:
+    """defines a square with private instance attribute size"""
     def __init__(self, size=0, position=(0, 0)):
-        """Initializes the data."""
+        """Constructor.
+        Args:
+            size: Length of the side of a square
+            position: position of square
+        """
         self.size = size
         self.position = position
 
     @property
     def size(self):
-        """Retrieves the size."""
+        """Retrieves the value of size"""
         return self.__size
 
     @size.setter
     def size(self, value):
-        """Sets the size to a value."""
+        """property setter - sets the value of size"""
+
         if not isinstance(value, int):
             raise TypeError("size must be an integer")
-        elif value < 0:
+        if value < 0:
             raise ValueError("size must be >= 0")
         self.__size = value
 
     @property
     def position(self):
-        """Retrieves the position."""
+        """Retrieves the value of position"""
         return self.__position
 
     @position.setter
     def position(self, value):
-        """Sets the position to a value."""
+        """property setter - sets the value of size"""
+
         if not isinstance(value, tuple) or len(value) != 2:
             raise TypeError("position must be a tuple of 2 positive integers")
-        if not isinstance(value[0], int) or not isinstance(value[1], int):
-            raise TypeError("position must be a tuple of 2 positive integers")
-        if value[0] < 0 or value[1] < 0:
+        if len([x for x in value if isinstance(x, int) and x >= 0]) != 2:
             raise TypeError("position must be a tuple of 2 positive integers")
         self.__position = value
 
     def area(self):
-        """Returns the current square area."""
+        """public instance method returns current sqr area"""
+
         return self.__size ** 2
 
     def my_print(self):
-        """Prints to stdout the square with the character #,
-        at the position given by the position attribute.
-        """
-        if self.__size == 0:
+        """prints the square to stdout with char #"""
+
+        if self.size == 0:
             print()
-            return
-        for y in range(0, self.__position[1]):
-            print()
-        for i in range(0, self.__size):
-            for x in range(0, self.__position[0]):
-                print(" ", end="")
-            for j in range(0, self.__size):
-                print("#", end="")
-            print()
+
+        else:
+            for i in range(self.position[1]):
+                    print()
+            for j in range(self.size):
+                for k in range(self.position[0]):
+                    print(" ", end="")
+                for l in range(self.size):
+                    print("#", end="")
+                print()
